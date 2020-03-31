@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails 
 
-Things you may want to cover:
+Show-off Tech Test
 
-* Ruby version
+* Ruby version : 2.6
 
-* System dependencies
+* Rails version: 6.0.2.2
 
-* Configuration
+* Database : PostgreSQL
 
-* Database creation
-
-* Database initialization
+TO DO:
 
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
-* ...
