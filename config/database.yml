@@ -14,8 +14,8 @@ development:
   <<: *default
   database: showoff
   statement_limit: 200
-  username: 'postgres'
-  password: '123'
+  username: 
+  password: 
   host: localhost
   port: 5432
   min_messages: notice
