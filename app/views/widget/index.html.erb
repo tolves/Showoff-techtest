@@ -1,17 +1,18 @@
 <h2>Hello World</h2>
 
-<%=@response %>
+<%=@oauth_create_token.inspect %>
+<%=@user.inspect %>
 
-<% @widgets_index['widgets'].each do |i, index| %>
-  ID: <%= i['id']%>,
-  Name: <%= i['name']%>,
-  description: <%= i['description']%>,
-  kind：<%= i['kind']%>,
-  userid：<%= i['user']['id']%>,
-  first_name: <%= i['user']['first_name']%>,
-  last_name: <%= i['user']['last_name']%>,
-  owner: <%= i['owner']%> </br>
-<% end %>
+<%# @widgets_index['widgets'].each do |i, index| %>
+<!--  ID: <%#= i['id']%>,-->
+<!--  Name: <%#= i['name']%>,-->
+<!--  description: <%#= i['description']%>,-->
+<!--  kind：<%#= i['kind']%>,-->
+<!--  userid：<%#= i['user']['id']%>,-->
+<!--  first_name: <%#= i['user']['first_name']%>,-->
+<!--  last_name: <%#= i['user']['last_name']%>,-->
+<!--  owner: <%#= i['owner']%> </br>-->
+<%# end %>
 
 <%= form_with scope: :oauth, local: true do |form| %>
   <p>
