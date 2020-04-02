@@ -1,23 +1,33 @@
 <h2>Hello World</h2>
 
 <%=session[:user].inspect %>
+<%=@oauth_create_token.inspect %>
 
 <% if flash[:login_error] %>
   <p><%= flash[:login_error] %></p>
 <% end %>
 
-<%# @widgets_index['widgets'].each do |i, index| %>
-<!--  ID: <%#= i['id']%>,-->
-<!--  Name: <%#= i['name']%>,-->
-<!--  description: <%#= i['description']%>,-->
-<!--  kind：<%#= i['kind']%>,-->
-<!--  userid：<%#= i['user']['id']%>,-->
-<!--  first_name: <%#= i['user']['first_name']%>,-->
-<!--  last_name: <%#= i['user']['last_name']%>,-->
-<!--  owner: <%#= i['owner']%> </br>-->
-<%# end %>
+<table>
+  <tr>
+    <td colspan="3">Welcome, <%= session[:user]['token']%></td>
+  </tr>
+  <tr>
+    <td>update</td><td>change password</td><td>reset password</td>
+  </tr>
+</table>
 
-<%= form_for :session, url: :sessions_create do |f|%>
+<% @widgets_index['widgets'].each do |i, index| %>
+  ID: <%= i['id']%>,
+  Name: <%= i['name']%>,
+  description: <%= i['description']%>,
+  kind：<%= i['kind']%>,
+  userid：<%= i['user']['id']%>,
+  first_name: <%= i['user']['first_name']%>,
+  last_name: <%= i['user']['last_name']%>,
+  owner: <%= i['owner']%> </br>
+<% end %>
+
+<%= form_for :login, url: :sessions_create do |f|%>
   <p>
     <%= f.label :username %><br>
     <%= f.text_field :username %>
@@ -30,6 +40,8 @@
   <p>
     <%= f.submit("login") %>
   </p>
+  <p>New to Showoff?</p>
+    <%=f.button("Register Now") %>
 <% end %>
 
 
