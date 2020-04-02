@@ -1,7 +1,10 @@
 <h2>Hello World</h2>
 
-<%=@oauth_create_token.inspect %>
-<%=@user.inspect %>
+<%=session[:user].inspect %>
+
+<% if flash[:login_error] %>
+  <p><%= flash[:login_error] %></p>
+<% end %>
 
 <%# @widgets_index['widgets'].each do |i, index| %>
 <!--  ID: <%#= i['id']%>,-->
@@ -14,19 +17,18 @@
 <!--  owner: <%#= i['owner']%> </br>-->
 <%# end %>
 
-<%= form_with scope: :oauth, local: true do |form| %>
+<%= form_for :session, url: :sessions_create do |f|%>
   <p>
-    <%= form.label :username %><br>
-    <%= form.text_field :username %>
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
   </p>
 
   <p>
-    <%= form.label :password %><br>
-    <%= form.password_field :password %>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
   </p>
-
   <p>
-    <%= form.submit("login") %>
+    <%= f.submit("login") %>
   </p>
 <% end %>
 
