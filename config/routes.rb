@@ -2,14 +2,18 @@ Rails.application.routes.draw do
   put 'users/update'
   post 'users/resetpwd'
   post 'users/changepwd'
-  #get 'sessions/new'
-  #get 'sessions/create'
-  post 'sessions/create'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get 'widget/index'
-  post 'widget/index'
-  root 'widget#index'
-  post 'sessions/logout'
   post 'users/register'
+  get 'users/index_me'
+
+  post 'sessions/create'
+  post 'sessions/logout'
+
+  get 'widget/index'
+  root 'widget#index'
+  post 'widget/create'
+  put 'widget/update'
+  delete 'widget/destroy'
+
+
 
 end

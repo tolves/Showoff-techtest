@@ -39,4 +39,11 @@ class UsersController < ApplicationController
     end
     redirect_to :widget_index
   end
+
+  def index_me
+    authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
+    @index_me = User.widgets_index_me authorization
+    authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
+    @index_me_term = User.widgets_index_me authorization, '&term=visable'
+  end
 end

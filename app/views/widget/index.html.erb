@@ -1,5 +1,8 @@
 <h2>Hello World</h2>
 
+<%=session[:user_token] %>
+<%=session[:userinfo] %>
+
 <% if flash[:login_error] %>
   <p><%= flash[:login_error] %></p>
 <% end %>
@@ -53,19 +56,12 @@
 <% if session[:userinfo] %>
   <div id="user_information" class="user_information" style="display: block">
     <table>
+      <tr><td colspan="3">Welcome, <%= session[:userinfo]['user']['name'] %></td></tr>
       <tr>
-        <td colspan="3">Welcome, <%= session[:userinfo]['user']['name'] %></td>
-      </tr>
-      <tr>
-        <td>
-          <button onclick="$('#user_update').toggle();">Update Profile</button>
-        </td>
-        <td>
-          <button onclick="$('#users_changepwd').toggle()">Change Password</button>
-        </td>
-        <td>
-          <%=button_to 'Logout', sessions_logout_url%>
-        </td>
+        <td><%=button_to 'My Widgets', users_index_me_url, method: :get %></td>
+        <td><button onclick="$('#user_update').toggle();">Update Profile</button></td>
+        <td><button onclick="$('#users_changepwd').toggle()">Change Password</button></td>
+        <td><%=button_to 'Logout', sessions_logout_url%></td>
       </tr>
     </table>
   </div>
@@ -102,16 +98,16 @@
   </div>
 <% end %>
 
-<% @widgets_index['widgets'].each do |i, index| %>
-  ID: <%= i['id'] %>,
-  Name: <%= i['name'] %>,
-  description: <%= i['description'] %>,
-  kind：<%= i['kind'] %>,
-  userid：<%= i['user']['id'] %>,
-  first_name: <%= i['user']['first_name'] %>,
-  last_name: <%= i['user']['last_name'] %>,
-  owner: <%= i['owner'] %> </br>
-<% end %>
+<%# @widgets_index['widgets'].each do |i, index| %>
+<!--  ID: <%#= i['id'] %>,-->
+<!--  Name: <%#= i['name'] %>,-->
+<!--  description: <%#= i['description'] %>,-->
+<!--  kind：<%#= i['kind'] %>,-->
+<!--  userid：<%#= i['user']['id'] %>,-->
+<!--  first_name: <%#= i['user']['first_name'] %>,-->
+<!--  last_name: <%#= i['user']['last_name'] %>,-->
+<!--  owner: <%#= i['owner'] %> </br>-->
+<%# end %>
 
 
 

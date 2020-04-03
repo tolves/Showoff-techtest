@@ -1,0 +1,17 @@
+<h2>hello world</h2>
+
+<%=@index_me.inspect %>
+<%=@index_me_term.inspect %>
+
+<div id="create_widget" class="widget" style="display: block">
+<!--  <div id="background_grey"></div>-->
+  <div id="widget_form">
+    <button class="close-button" onclick="$('#create_widget').hide()">X</button>
+    <%= form_for :create, url: :widget_create do |f| %>
+      <p><%= f.label :name %>: <%= f.text_field :name %></p>
+      <p><%= f.label :description %>: <%= f.text_area :description %></p>
+      <p><%= f.label :kind %>: <%= f.select(:kind,options_for_select([['visible', 'visible'],['hidden', 'hidden']])) %></p>
+      <p><%= f.submit("submit") %></p>
+    <% end %>
+  </div>
+</div>
