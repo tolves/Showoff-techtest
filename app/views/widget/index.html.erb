@@ -1,14 +1,13 @@
 <h2>Hello World</h2>
 
-<%= session[:user].inspect %></br>
 <%= session[:userinfo].inspect %></br>
-<%= @r.inspect %></br>
-<%= @change %>
+<%= session[:login_status].inspect %></br>
 
 <% if flash[:login_error] %>
   <p><%= flash[:login_error] %></p>
 <% end %>
-<% if !session[:userinfo] %>
+<p><%= flash[:notice] %></p>
+<% if session[:login_status] != 'login success' %>
   <button onclick="$('div#user_management').toggle()">Login</button> </br>
 <% end %>
 
