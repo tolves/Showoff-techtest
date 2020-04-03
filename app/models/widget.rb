@@ -6,7 +6,7 @@ class Widget < ApplicationRecord
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/visible?" +
         "client_id=" + client_id +
         "&client_secret=" + client_secret
-    headers = {'Authorization' => authorization}
+    headers = {'Content-Type'=> 'application/json'}
     self.rest_client 'get', url, headers
   end
 

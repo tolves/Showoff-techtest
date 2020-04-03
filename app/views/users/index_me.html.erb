@@ -3,27 +3,35 @@
 <br>
 <button onclick="$('#create_widget').show()" type="button">Create a budget</button>
 
-
-<table border="1">
-  <tr>
-    <th>ID</th><th>Widget name</th><th>Widget description</th>
-  </tr>
-  <% @index_me['data']['widgets'].each do |w| %>
+<div>
+  <table border="1">
     <tr>
-      <td><%=w['id'] %></td>
-      <td><%=w['name'] %></td>
-      <td><%=w['description'] %></td>
-      <td><button onclick="
-            $('#update_widget').show();
-            $('#update_id').val($(this).parent().prev().prev().prev().text());
-            $('#update_name').val($(this).parent().prev().prev().text());
-            $('#update_description').val($(this).parent().prev().text());
-            " type="button">Update
-      </button></td>
-      <td><button type="button" onclick="$('#delete_widget').show();$('#delete_id').val($(this).parent().prev().prev().prev().prev().text());">Delete</button></td>
+      <th>ID</th>
+      <th>Widget name</th>
+      <th>Widget description</th>
     </tr>
-  <% end %>
-</table>
+    <% @index_me['data']['widgets'].each do |w| %>
+      <tr>
+        <td><%= w['id'] %></td>
+        <td><%= w['name'] %></td>
+        <td><%= w['description'] %></td>
+        <td>
+          <button onclick="
+          $('#update_widget').show();
+              $('#update_id').val($(this).parent().prev().prev().prev().text());
+              $('#update_name').val($(this).parent().prev().prev().text());
+              $('#update_description').val($(this).parent().prev().text());
+          " type="button">Update
+          </button>
+        </td>
+        <td>
+          <button type="button" onclick="$('#delete_widget').show();$('#delete_id').val($(this).parent().prev().prev().prev().prev().text());">Delete</button>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<p><%= link_to 'Back', :back %></p>
 
 
 <div id="create_widget" class="widget" style="display: none">
@@ -45,7 +53,7 @@
   <div id="widget_form">
     <button class="close-button" onclick="$('#update_widget').hide()">X</button>
     <%= form_for :update, :method => :put, url: :widget_update do |f| %>
-      <%= f.hidden_field(:id, :value => nil)%>
+      <%= f.hidden_field(:id, :value => nil) %>
       <p><%= f.label :name %>: <%= f.text_field :name %></p>
       <p><%= f.label :description %>: <%= f.text_area :description %></p>
       <p><%= f.submit("submit") %></p>
@@ -58,11 +66,12 @@
   <div id="widget_form">
     <button class="close-button" onclick="$('#delete_widget').hide()">X</button>
     <%= form_for :delete, :method => :delete, url: :widget_delete do |f| %>
-      <%= f.hidden_field(:id, :value => nil)%>
+      <%= f.hidden_field(:id, :value => nil) %>
       <p>Are you sure to delete this widget?</p>
       <p>
         <%= f.submit("Yes") %>
-        <button class="close-button" onclick="$('#delete_widget').hide()" type="button">No</button></p>
+        <button class="close-button" onclick="$('#delete_widget').hide()" type="button">No</button>
+      </p>
     <% end %>
   </div>
 </div>

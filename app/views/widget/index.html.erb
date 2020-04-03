@@ -54,9 +54,9 @@
 </div>
 
 <% if session[:userinfo] %>
-  <div id="user_information" class="user_information" style="display: block">
-    <table>
-      <tr><td colspan="3">Welcome, <%= session[:userinfo]['user']['name'] %></td></tr>
+  <div id="user_information" style="display: block">
+    <table border="1" class="user_information">
+      <tr><td colspan="4">Welcome, <%= session[:userinfo]['user']['name'] %></td></tr>
       <tr>
         <td><%=button_to 'My Widgets', users_index_me_url, method: :get %></td>
         <td><button onclick="$('#user_update').toggle();">Update Profile</button></td>
@@ -98,16 +98,21 @@
   </div>
 <% end %>
 
-<%# @widgets_index['widgets'].each do |i, index| %>
-<!--  ID: <%#= i['id'] %>,-->
-<!--  Name: <%#= i['name'] %>,-->
-<!--  description: <%#= i['description'] %>,-->
-<!--  kind：<%#= i['kind'] %>,-->
-<!--  userid：<%#= i['user']['id'] %>,-->
-<!--  first_name: <%#= i['user']['first_name'] %>,-->
-<!--  last_name: <%#= i['user']['last_name'] %>,-->
-<!--  owner: <%#= i['owner'] %> </br>-->
-<%# end %>
+<div>
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Desc</th><th>user</th><th>owner</th></tr>
+    <% @widgets_index['widgets'].each do |i, index| %>
+      <tr>
+        <td><%= i['id'] %></td>
+        <td><%= i['name'] %></td>
+        <td><%= i['description'] %></td>
+        <td><%= i['user']['first_name']+' '+i['user']['last_name'] %></td>
+        <td><%= i['owner'] %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
 
 
 
