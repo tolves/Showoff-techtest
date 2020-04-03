@@ -1,47 +1,106 @@
 <h2>Hello World</h2>
 
-<%=session[:user].inspect %>
-<%=@oauth_create_token.inspect %>
+<%= session[:user].inspect %></br>
+<%= session[:userinfo].inspect %></br>
+<%= @r.inspect %></br>
+<%= @change %>
 
 <% if flash[:login_error] %>
   <p><%= flash[:login_error] %></p>
 <% end %>
+<% if !session[:userinfo] %>
+  <button onclick="$('div#user_management').toggle()">Login</button> </br>
+<% end %>
 
-<table>
-  <tr>
-    <td colspan="3">Welcome, <%= session[:user]['token']%></td>
-  </tr>
-  <tr>
-    <td>update</td><td>change password</td><td>reset password</td>
-  </tr>
-</table>
+<div id="user_management" class="user_management" style="display: none">
+  <div id="background_grey"></div>
+  <div id="user_form">
+    <span><button class="close-button">X</button> </span>
+    <%= form_for :login, url: :sessions_create do |f| %>
+      <p><%= f.label :username %>: <%= f.text_field :username %></p>
+      <p><%= f.label :password %>: <%= f.password_field :password %></p>
+      <p><%= f.submit("login") %></p>
+      <p>New to Showoff?</p>
+      <p><%= f.button("Register Now") %></p>
+      <p>Forget your password?</p>
+      <button onclick="$('#user_management').hide();$('#users_resetpwd').show()" type="button">Reset Password</button>
+    <% end %>
+  </div>
+</div>
+
+<div id="users_resetpwd" class="user_management" style="display: none">
+  <div id="background_grey"></div>
+  <div id="user_form">
+    <button class="close-button" onclick="$('#users_resetpwd').hide()">X</button>
+    <%= form_for :resetpwd, url: :users_resetpwd do |f| %>
+      <p><%= f.label :email %>: <%= f.text_field :email %></p>
+      <p><%= f.submit("submit") %></p>
+    <% end %>
+  </div>
+</div>
+
+<% if session[:userinfo] %>
+  <div id="user_information" class="user_information" style="display: block">
+    <table>
+      <tr>
+        <td colspan="3">Welcome, <%= session[:userinfo]['user']['name'] %></td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="$('#user_update').toggle();">Update Profile</button>
+        </td>
+        <td>
+          <button onclick="$('#users_changepwd').toggle()">Change Password</button>
+        </td>
+        <td>
+          <%=button_to 'Logout', sessions_logout_url%>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="user_update" class="user_management" style="display: none">
+    <div id="background_grey"></div>
+    <div id="user_form">
+      <span>Update Profile</span>
+      <button class="close-button" onclick="$('#user_update').hide()">X</button>
+      <%= form_for :update_user, url: :users_update, method: :put do |f| %>
+        <p><%= f.label :first_name %>
+          : <%= f.text_field :first_name, :value => session[:userinfo]['user']['first_name'] %></p>
+        <p><%= f.label :last_name %>
+          : <%= f.text_field :last_name, :value => session[:userinfo]['user']['last_name'] %></p>
+        <p><%= f.label :date_of_birth %>
+          : <%= f.text_field :date_of_birth, :value => session[:userinfo]['user']['date_of_birth'] %></p>
+        <p><%= f.label :image_url %>
+          : <%= f.text_field :image_url, :value => session[:userinfo]['user']['image_url'] %></p>
+        <p><%= f.submit("submit") %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="users_changepwd" class="user_management" style="display: none">
+    <div id="background_grey"></div>
+    <div id="user_form">
+      <button class="close-button" onclick="$('#users_changepwd').hide()">X</button>
+      <%= form_for :changepwd, url: :users_changepwd do |f| %>
+        <p><%= f.label :current_password %>: <%= f.password_field :current_password %></p>
+        <p><%= f.label :new_password %>: <%= f.password_field :new_password %></p>
+        <p><%= f.submit("submit") %></p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 
 <% @widgets_index['widgets'].each do |i, index| %>
-  ID: <%= i['id']%>,
-  Name: <%= i['name']%>,
-  description: <%= i['description']%>,
-  kind：<%= i['kind']%>,
-  userid：<%= i['user']['id']%>,
-  first_name: <%= i['user']['first_name']%>,
-  last_name: <%= i['user']['last_name']%>,
-  owner: <%= i['owner']%> </br>
+  ID: <%= i['id'] %>,
+  Name: <%= i['name'] %>,
+  description: <%= i['description'] %>,
+  kind：<%= i['kind'] %>,
+  userid：<%= i['user']['id'] %>,
+  first_name: <%= i['user']['first_name'] %>,
+  last_name: <%= i['user']['last_name'] %>,
+  owner: <%= i['owner'] %> </br>
 <% end %>
 
-<%= form_for :login, url: :sessions_create do |f|%>
-  <p>
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </p>
-
-  <p>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </p>
-  <p>
-    <%= f.submit("login") %>
-  </p>
-  <p>New to Showoff?</p>
-    <%=f.button("Register Now") %>
-<% end %>
 
 

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  put 'users/update'
+  post 'users/resetpwd'
+  post 'users/changepwd'
   #get 'sessions/new'
   #get 'sessions/create'
   post 'sessions/create'
@@ -6,5 +9,6 @@ Rails.application.routes.draw do
   get 'widget/index'
   post 'widget/index'
   root 'widget#index'
+  post 'sessions/logout'
 
 end
