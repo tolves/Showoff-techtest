@@ -3,10 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    session.clear
     if params[:login]
       r = Session.login(params[:login][:username], params[:login][:password])
-      if r['message'] == 'Success'
+      if r['message'] == 'Success' && verify_recaptcha
         login_status = 'login success'
         session[:user_token] = r['data']['token']
         token = r['data']['token']['token_type'] + ' ' + r['data']['token']['access_token']

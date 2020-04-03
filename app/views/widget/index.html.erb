@@ -1,7 +1,6 @@
 <h2>Hello World</h2>
 
 <%=session[:user_token] %>
-<%=session[:userinfo] %>
 
 <% if flash[:login_error] %>
   <p><%= flash[:login_error] %></p>
@@ -18,6 +17,7 @@
     <%= form_for :login, url: :sessions_create do |f| %>
       <p><%= f.label :username %>: <%= f.text_field :username %></p>
       <p><%= f.label :password %>: <%= f.password_field :password %></p>
+      <%= recaptcha_tags %>
       <p><%= f.submit("login") %></p>
       <p>New to Showoff?</p>
       <p><button onclick="$('#user_management').hide();$('#users_register').show()" type="button">Register Now</button></p>
