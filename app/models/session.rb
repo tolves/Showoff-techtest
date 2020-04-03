@@ -7,22 +7,13 @@ class Session < ApplicationRecord
                'username' => username,
                'password' => password
     }
-    begin
-      oauth_create_token = RestClient.post url, payload, {content_type: :json}
-    rescue RestClient::ExceptionWithResponse => e
-      oauth_create_token = e.response
-    end
-    JSON.parse(oauth_create_token)
+    headers = {content_type: :json}
+    self.rest_client 'post', url, payload, headers
   end
 
-  def self.user_info(token)
+  def self.show_me(token)
     url = 'https://showoff-rails-react-production.herokuapp.com/api/v1/users/me'
-    authorization = token['token_type'] + ' ' + token['access_token']
-    begin
-      api = RestClient.get url, {'Authorization' => authorization}
-    rescue RestClient::ExceptionWithResponse => e
-      api = e.response
-    end
-    result = JSON.parse(api)
+    headers = {content_type: :json, 'authorization' => token}
+    self.rest_client 'get', url, headers
   end
 end

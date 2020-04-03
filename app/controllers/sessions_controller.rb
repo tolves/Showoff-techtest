@@ -5,16 +5,17 @@ class SessionsController < ApplicationController
   def create
     session.clear
     if params[:login]
-      oauth_create_token = Session.login(params[:login][:username], params[:login][:password])
-      if oauth_create_token['message'] == 'Success'
+      r = Session.login(params[:login][:username], params[:login][:password])
+      if r['message'] == 'Success'
         login_status = 'login success'
-        session[:user_token] = oauth_create_token['data']['token']
-        userinfo = Session.user_info(oauth_create_token['data']['token'])
+        session[:user_token] = r['data']['token']
+        token = r['data']['token']['token_type'] + ' ' + r['data']['token']['access_token']
+        userinfo = Session.show_me(token)
         if userinfo['message'] == 'Success'
           session[:userinfo] = userinfo['data']
         end
       else
-        login_status = 'login failed'
+        login_status = 'login failed' + r['message']
       end
       session[:login_status] = login_status
       redirect_to :widget_index

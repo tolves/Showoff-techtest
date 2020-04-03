@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   post 'widget/index'
   root 'widget#index'
   post 'sessions/logout'
+  post 'users/register'
 
 end

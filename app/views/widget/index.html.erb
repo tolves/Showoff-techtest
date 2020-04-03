@@ -1,5 +1,6 @@
 <h2>Hello World</h2>
 
+<%= session[:user_token].inspect %></br>
 <%= session[:userinfo].inspect %></br>
 <%= session[:login_status].inspect %></br>
 
@@ -14,13 +15,13 @@
 <div id="user_management" class="user_management" style="display: none">
   <div id="background_grey"></div>
   <div id="user_form">
-    <span><button class="close-button">X</button> </span>
+    <span><button class="close-button" onclick="$('#user_management').hide()">X</button> </span>
     <%= form_for :login, url: :sessions_create do |f| %>
       <p><%= f.label :username %>: <%= f.text_field :username %></p>
       <p><%= f.label :password %>: <%= f.password_field :password %></p>
       <p><%= f.submit("login") %></p>
       <p>New to Showoff?</p>
-      <p><%= f.button("Register Now") %></p>
+      <p><button onclick="$('#user_management').hide();$('#users_register').show()" type="button">Register Now</button></p>
       <p>Forget your password?</p>
       <button onclick="$('#user_management').hide();$('#users_resetpwd').show()" type="button">Reset Password</button>
     <% end %>
@@ -33,6 +34,21 @@
     <button class="close-button" onclick="$('#users_resetpwd').hide()">X</button>
     <%= form_for :resetpwd, url: :users_resetpwd do |f| %>
       <p><%= f.label :email %>: <%= f.text_field :email %></p>
+      <p><%= f.submit("submit") %></p>
+    <% end %>
+  </div>
+</div>
+
+<div id="users_register" class="user_management" style="display: none">
+  <div id="background_grey"></div>
+  <div id="user_form">
+    <button class="close-button" onclick="$('#users_register').hide()">X</button>
+    <%= form_for :register, url: :users_register do |f| %>
+      <p><%= f.label :first_name %>: <%= f.text_field :first_name %></p>
+      <p><%= f.label :last_name %>: <%= f.text_field :last_name %></p>
+      <p><%= f.label :password %>: <%= f.password_field :password %></p>
+      <p><%= f.label :email %>: <%= f.text_field :email %></p>
+      <p><%= f.label :image_url %>: <%= f.text_field :image_url %></p>
       <p><%= f.submit("submit") %></p>
     <% end %>
   </div>
