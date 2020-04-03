@@ -10,16 +10,35 @@ class Widget < ApplicationRecord
     self.rest_client 'get', url, headers
   end
 
-  def self.create
-
+  def self.create(name, description, kind, authorization)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets"
+    payload = {
+        'widget' => {
+            'name' => name,
+            'description' => description,
+            'kind' => kind
+        }
+    }
+    headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
+    self.rest_client 'post', url, payload, headers
   end
 
-  def self.update
-
+  def self.update(id, name, description, authorization)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/"+id
+    payload = {
+        'widget' => {
+            'name' => name,
+            'description' => description
+        }
+    }
+    headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
+    self.rest_client 'put', url, payload, headers
   end
 
-  def self.destroy
-
+  def self.destroy(id, authorization)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/"+id
+    headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
+    self.rest_client 'delete', url, headers
   end
 
 end
