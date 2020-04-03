@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
       else
         login_status = 'login failed' + r['message']
       end
-      flash_notice('Login', r['message'])
+      flash_notice('Login', r)
       session[:login_status] = login_status
       redirect_to :widget_index
     end
