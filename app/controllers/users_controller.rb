@@ -41,6 +41,10 @@ class UsersController < ApplicationController
   end
 
   def index_me
+    if (!session[:user_token] || !session[:userinfo])
+      redirect_to :widget_index
+      return
+    end
     authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
     @index_me = User.widgets_index_me authorization
     authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']

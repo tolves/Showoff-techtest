@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   root 'widget#index'
   post 'widget/create'
   put 'widget/update'
-  delete 'widget/destroy'
-
-
+  delete 'widget/delete'
 
 end

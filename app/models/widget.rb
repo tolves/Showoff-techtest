@@ -36,7 +36,7 @@ class Widget < ApplicationRecord
     self.rest_client 'put', url, payload, headers
   end
 
-  def self.destroy(id, authorization)
+  def self.delete(id, authorization)
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/"+id
     headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
     self.rest_client 'delete', url, headers
