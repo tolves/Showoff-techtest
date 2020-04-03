@@ -20,6 +20,7 @@ class Widget < ApplicationRecord
         }
     }
     headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
+    puts payload
     self.rest_client 'post', url, payload, headers
   end
 
@@ -40,5 +41,4 @@ class Widget < ApplicationRecord
     headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
     self.rest_client 'delete', url, headers
   end
-
 end
