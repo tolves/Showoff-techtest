@@ -30,15 +30,7 @@
   <div id="background_grey"></div>
   <div id="user_form">
     <button class="close-button" onclick="$('#users_register').hide()">X</button>
-    <%= form_for :register, url: :users_register do |f| %>
-      <p><%= f.label :first_name %>: <%= f.text_field :first_name %></p>
-      <p><%= f.label :last_name %>: <%= f.text_field :last_name %></p>
-      <p><%= f.label :password %>: <%= f.password_field :password %></p>
-      <p><%= f.label :email %>: <%= f.text_field :email %></p>
-      <p><%= f.label :image_url %>: <%= f.text_field :image_url %></p>
-      <p><%= recaptcha_tags %></p>
-      <p><%= f.submit("submit") %></p>
-    <% end %>
+    <%=render 'users/form_register' %>
   </div>
 </div>
 
