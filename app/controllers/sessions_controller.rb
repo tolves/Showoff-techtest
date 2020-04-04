@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
       if r['message'] == 'Success'
         login_status = 'login success'
         session[:user_token] = r['data']['token']
+        session[:expires_at] = r['data']['token']['created_at'] + r['data']['token']['expires_in']
+        session[:authorization] = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
         token = r['data']['token']['token_type'] + ' ' + r['data']['token']['access_token']
         userinfo = Session.show_me(token)
         if userinfo['message'] == 'Success'

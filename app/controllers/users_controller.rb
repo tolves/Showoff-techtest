@@ -1,25 +1,20 @@
 class UsersController < ApplicationController
+  before_action  :session_expires, :except => [:resetpwd, :register]
 
   def index_me
-    if (!session[:user_token] || !session[:userinfo])
-      redirect_to :widget_index
-      return
-    end
-    authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
     if params[:search]
       #search term
-      @index_me = User.search authorization, params[:search][:term]
+      @index_me = User.search session[:authorization], params[:search][:term]
       flash_notice('Search', @index_me)
     else
-      @index_me = User.widgets_index_me authorization
+      @index_me = User.widgets_index_me session[:authorization]
     end
     render :index_me
   end
 
   def update
     if params[:update_user]
-      authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
-      r = User.user_update params[:update_user][:first_name], params[:update_user][:last_name], params[:update_user][:date_of_birth], params[:update_user][:image_url], authorization
+      r = User.user_update params[:update_user][:first_name], params[:update_user][:last_name], params[:update_user][:date_of_birth], params[:update_user][:image_url], session[:authorization]
       flash_notice('Updata User Information', r)
       if r['message'] == 'Success'
         session[:userinfo] =r['data']
@@ -30,8 +25,7 @@ class UsersController < ApplicationController
 
   def changepwd
     if params[:changepwd]
-      authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
-      r = User.changepasswd params[:changepwd][:current_password],  params[:changepwd][:new_password], authorization
+      r = User.changepasswd params[:changepwd][:current_password],  params[:changepwd][:new_password], session[:authorization]
       flash_notice('Change password', r)
       if r['message'] == 'Success'
         #update new token into session

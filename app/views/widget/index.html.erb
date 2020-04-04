@@ -1,10 +1,6 @@
 <h2>Hello World</h2>
+<%=session[:expires_at].inspect %>
 
-<%=@a.inspect %>
-
-<% if flash[:login_error] %>
-  <p><%= flash[:login_error] %></p>
-<% end %>
 <p><%= flash[:notice] %></p>
 <% if session[:login_status] != 'login success' %>
   <button onclick="$('div#user_management').toggle()">Login</button> </br>
@@ -12,7 +8,6 @@
 
 <div id="search">
   <%=form_for :search, url: :widget_search do |f| %>
-    <%=f.label :term %>
     <%=f.text_field :term %>
     <%=f.submit("search") %>
   <%end %>

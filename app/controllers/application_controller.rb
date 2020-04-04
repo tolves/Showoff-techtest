@@ -9,4 +9,12 @@ class ApplicationController < ActionController::Base
       flash[:notice] = method + ' failed: ' + r['message']
     end
   end
+  def session_expires
+    @time_left = session[:expires_at] - Time.now.to_i
+    unless @time_left > 0
+      reset_session
+      flash[:notice] = 'Login information expired, please login again'
+      redirect_to :widget_index
+    end
+  end
 end
