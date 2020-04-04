@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   post 'widget/create'
   put 'widget/update'
   delete 'widget/delete'
+  post 'widget/search'
 
 end

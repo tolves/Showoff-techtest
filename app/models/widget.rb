@@ -1,5 +1,5 @@
 class Widget < ApplicationRecord
-  def self.get_widgets_index
+  def self.visible_public
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/visible?" +
         "client_id=" + self.client_id +
         "&client_secret=" + self.client_secret
@@ -37,4 +37,11 @@ class Widget < ApplicationRecord
     self.rest_client 'delete', url, headers
   end
 
+  def self.search(term)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/visible?" +
+        "client_id=" + self.client_id +
+        "&client_secret=" + self.client_secret +
+        "&term=" + term
+    self.rest_client 'get', url, self.headers
+  end
 end

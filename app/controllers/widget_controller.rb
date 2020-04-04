@@ -1,9 +1,9 @@
 class WidgetController < ApplicationController
 
   def index
-    widgets_index = Widget.get_widgets_index
-    if widgets_index['message'] == 'Success'
-      @widgets_index = widgets_index['data']
+    r = Widget.visible_public
+    if r['message'] == 'Success'
+      @widgets_view_public= r['data']
     end
     render :index
   end
@@ -35,5 +35,13 @@ class WidgetController < ApplicationController
       flash_notice('Delete widget', r)
     end
     redirect_to :users_index_me
+  end
+
+  def search
+    r = Widget.search params[:search][:term]
+    if r['message'] == 'Success'
+      @widgets_search= r['data']
+    end
+    render :index
   end
 end

@@ -10,6 +10,14 @@
   <button onclick="$('div#user_management').toggle()">Login</button> </br>
 <% end %>
 
+<div id="search">
+  <%=form_for :search, url: :widget_search do |f| %>
+    <%=f.label :term %>
+    <%=f.text_field :term %>
+    <%=f.submit("search") %>
+  <%end %>
+</div>
+
 <div id="user_management" class="user_management" style="display: none">
   <div id="background_grey"></div>
   <div id="user_form">
@@ -101,9 +109,10 @@
 <% end %>
 
 <div>
+  <% @widgets_view_public = @widgets_search if @widgets_search %>
   <table>
     <tr><th>ID</th><th>Name</th><th>Desc</th><th>user</th><th>owner</th></tr>
-    <% @widgets_index['widgets'].each do |i, index| %>
+    <% @widgets_view_public['widgets'].each do |i, index| %>
       <tr>
         <td><%= i['id'] %></td>
         <td><%= i['name'] %></td>
