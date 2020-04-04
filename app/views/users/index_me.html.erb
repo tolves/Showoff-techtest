@@ -5,10 +5,7 @@
 <%=@widgets_me_search.inspect %>
 
 <div id="search">
-  <%=form_for :search, url: :users_index_me do |f| %>
-    <%=f.text_field :term %>
-    <%=f.submit("search") %>
-  <%end %>
+  <%= render 'form_search' %>
 </div>
 
 <% @index_me = @widgets_me_search if @widgets_me_search %>
@@ -47,13 +44,7 @@
   <div id="background_grey"></div>
   <div id="widget_form">
     <button class="close-button" onclick="$('#create_widget').hide()">X</button>
-    <%= form_for :create, url: :widget_create do |f| %>
-      <p><%= f.label :name %>: <%= f.text_field :name %></p>
-      <p><%= f.label :description %>: <%= f.text_area :description %></p>
-      <p><%= f.label :kind %>
-        : <%= f.select(:kind, options_for_select([['visible', 'visible'], ['hidden', 'hidden']])) %></p>
-      <p><%= f.submit("submit") %></p>
-    <% end %>
+    <%=render 'widget/form_create' %>
   </div>
 </div>
 
@@ -61,12 +52,7 @@
   <div id="background_grey"></div>
   <div id="widget_form">
     <button class="close-button" onclick="$('#update_widget').hide()">X</button>
-    <%= form_for :update, :method => :put, url: :widget_update do |f| %>
-      <%= f.hidden_field(:id, :value => nil) %>
-      <p><%= f.label :name %>: <%= f.text_field :name %></p>
-      <p><%= f.label :description %>: <%= f.text_area :description %></p>
-      <p><%= f.submit("submit") %></p>
-    <% end %>
+    <%=render 'widget/form_update' %>
   </div>
 </div>
 
@@ -74,13 +60,6 @@
   <div id="background_grey"></div>
   <div id="widget_form">
     <button class="close-button" onclick="$('#delete_widget').hide()">X</button>
-    <%= form_for :delete, :method => :delete, url: :widget_delete do |f| %>
-      <%= f.hidden_field(:id, :value => nil) %>
-      <p>Are you sure to delete this widget?</p>
-      <p>
-        <%= f.submit("Yes") %>
-        <button class="close-button" onclick="$('#delete_widget').hide()" type="button">No</button>
-      </p>
-    <% end %>
+    <%=render 'widget/form_delete' %>
   </div>
 </div>

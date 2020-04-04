@@ -7,26 +7,14 @@
 <% end %>
 
 <div id="search">
-  <%=form_for :search, url: :widget_search do |f| %>
-    <%=f.text_field :term %>
-    <%=f.submit("search") %>
-  <%end %>
+  <%= render 'form_search' %>
 </div>
 
 <div id="user_management" class="user_management" style="display: none">
   <div id="background_grey"></div>
   <div id="user_form">
     <span><button class="close-button" onclick="$('#user_management').hide()">X</button> </span>
-    <%= form_for :login, url: :sessions_create do |f| %>
-      <p><%= f.label :username %>: <%= f.text_field :username %></p>
-      <p><%= f.label :password %>: <%= f.password_field :password %></p>
-      <%= recaptcha_tags%>
-      <p><%= f.submit("login") %></p>
-      <p>New to Showoff?</p>
-      <p><button onclick="$('#user_management').hide();$('#users_register').show()" type="button">Register Now</button></p>
-      <p>Forget your password?</p>
-      <button onclick="$('#user_management').hide();$('#users_resetpwd').show()" type="button">Reset Password</button>
-    <% end %>
+    <%= render 'sessions/form_login' %>
   </div>
 </div>
 
@@ -34,11 +22,7 @@
   <div id="background_grey"></div>
   <div id="user_form">
     <button class="close-button" onclick="$('#users_resetpwd').hide()">X</button>
-    <%= form_for :resetpwd, url: :users_resetpwd do |f| %>
-      <p><%= f.label :email %>: <%= f.text_field :email %></p>
-      <p><%= recaptcha_tags %></p>
-      <p><%= f.submit("submit") %></p>
-    <% end %>
+    <%= render 'users/form_resetpwd' %>
   </div>
 </div>
 
@@ -76,17 +60,7 @@
     <div id="user_form">
       <span>Update Profile</span>
       <button class="close-button" onclick="$('#user_update').hide()">X</button>
-      <%= form_for :update_user, url: :users_update, method: :put do |f| %>
-        <p><%= f.label :first_name %>
-          : <%= f.text_field :first_name, :value => session[:userinfo]['user']['first_name'] %></p>
-        <p><%= f.label :last_name %>
-          : <%= f.text_field :last_name, :value => session[:userinfo]['user']['last_name'] %></p>
-        <p><%= f.label :date_of_birth %>
-          : <%= f.text_field :date_of_birth, :value => session[:userinfo]['user']['date_of_birth'] %></p>
-        <p><%= f.label :image_url %>
-          : <%= f.text_field :image_url, :value => session[:userinfo]['user']['image_url'] %></p>
-        <p><%= f.submit("submit") %></p>
-      <% end %>
+      <%=render 'users/form_update' %>
     </div>
   </div>
 
@@ -94,11 +68,7 @@
     <div id="background_grey"></div>
     <div id="user_form">
       <button class="close-button" onclick="$('#users_changepwd').hide()">X</button>
-      <%= form_for :changepwd, url: :users_changepwd do |f| %>
-        <p><%= f.label :current_password %>: <%= f.password_field :current_password %></p>
-        <p><%= f.label :new_password %>: <%= f.password_field :new_password %></p>
-        <p><%= f.submit("submit") %></p>
-      <% end %>
+      <%=render 'users/form_changepwd' %>
     </div>
   </div>
 <% end %>

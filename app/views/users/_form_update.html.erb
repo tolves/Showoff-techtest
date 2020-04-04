@@ -1,0 +1,11 @@
+<%= form_for :update_user, url: :users_update, method: :put do |f| %>
+  <p><%= f.label :first_name %>
+    : <%= f.text_field :first_name, :value => session[:userinfo]['user']['first_name'] %></p>
+  <p><%= f.label :last_name %>
+    : <%= f.text_field :last_name, :value => session[:userinfo]['user']['last_name'] %></p>
+  <p><%= f.label :date_of_birth %>
+    : <%= f.text_field :date_of_birth, :value => session[:userinfo]['user']['date_of_birth'] %></p>
+  <p><%= f.label :image_url %>
+    : <%= f.text_field :image_url, :value => session[:userinfo]['user']['image_url'] %></p>
+  <p><%= f.submit("submit") %></p>
+<% end %>

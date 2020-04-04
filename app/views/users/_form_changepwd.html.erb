@@ -1,0 +1,5 @@
+<%= form_for :changepwd, url: :users_changepwd do |f| %>
+  <p><%= f.label :current_password %>: <%= f.password_field :current_password %></p>
+  <p><%= f.label :new_password %>: <%= f.password_field :new_password %></p>
+  <p><%= f.submit("submit") %></p>
+<% end %>

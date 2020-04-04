@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = method + ' failed: ' + r['message']
     end
   end
+
   def session_expires
     if !session[:expires_at]
       flash[:notice] = 'Login please'
@@ -23,7 +24,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def seesion_user_check
+  def session_user_check
     if (!session[:user_token] || !session[:userinfo])
       flash[:notice] = 'Error, login again please'
       redirect_to :widget_index
