@@ -9,7 +9,7 @@ class User < ApplicationRecord
             'image_url' => image_url
         }
     }
-    headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
+    headers = self.headers.merge({'Authorization' => authorization})
     self.rest_client 'put', url, payload, headers
   end
 
@@ -21,7 +21,7 @@ class User < ApplicationRecord
             'new_password' => new
         }
     }
-    headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
+    headers = self.headers.merge({'Authorization' => authorization})
     self.rest_client 'post', url, payload, headers
   end
 
@@ -29,18 +29,17 @@ class User < ApplicationRecord
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/reset_password"
     payload = {
         'user' => {'email' => email},
-        'client_id' => '277ef29692f9a70d511415dc60592daf4cf2c6f6552d3e1b769924b2f2e2e6fe',
-        'client_secret' => 'd6106f26e8ff5b749a606a1fba557f44eb3dca8f48596847770beb9b643ea352'
+        'client_id' => self.client_id,
+        'client_secret' => self.client_secret
     }
-    headers = {'Content-Type'=> 'application/json'}
-    self.rest_client 'post', url, payload, headers
+    self.rest_client 'post', url, payload, self.headers
   end
 
   def self.register (first_name, last_name, password, email, image_url)
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users"
     payload = {
-        'client_id' => '277ef29692f9a70d511415dc60592daf4cf2c6f6552d3e1b769924b2f2e2e6fe',
-        'client_secret' => 'd6106f26e8ff5b749a606a1fba557f44eb3dca8f48596847770beb9b643ea352',
+        'client_id' => self.client_id,
+        'client_secret' => self.client_secret,
         'user' => {
             'first_name' => first_name,
             'last_name' => last_name,
@@ -49,13 +48,12 @@ class User < ApplicationRecord
             'image_url' => image_url
         }
     }
-    headers = {'Content-Type'=> 'application/json'}
-    self.rest_client 'post', url, payload, headers
+    self.rest_client 'post', url, payload, self.headers
   end
 
   def self.widgets_index_me(authorization, term = '')
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=277ef29692f9a70d511415dc60592daf4cf2c6f6552d3e1b769924b2f2e2e6fe&client_secret=d6106f26e8ff5b749a606a1fba557f44eb3dca8f48596847770beb9b643ea352" + term
-    headers = {'Authorization' => authorization, 'Content-Type'=> 'application/json'}
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{self.client_id}&client_secret=#{self.client_secret}" + term
+    headers = self.headers.merge({'Authorization' => authorization})
     self.rest_client 'get', url, headers
   end
 end
