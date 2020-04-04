@@ -1,5 +1,6 @@
 class WidgetController < ApplicationController
   before_action  :session_expires, :except => [:index, :search]
+  before_action  :session_user_check, :except => [:index, :search]
 
   def index
     r = Widget.visible_public
@@ -10,7 +11,6 @@ class WidgetController < ApplicationController
   end
 
   def create
-    redirect_to :wigdet_index if (!session[:user_token] || !session[:userinfo])
     if params[:create]
       r = Widget.create params[:create][:name], params[:create][:description], params[:create][:kind], session[:authorization]
       flash_notice('Create widget', r)

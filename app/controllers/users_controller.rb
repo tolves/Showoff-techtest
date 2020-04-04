@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action  :session_expires, :except => [:resetpwd, :register]
+  before_action  :session_user_check, :except => [:resetpwd, :register]
 
   def index_me
     if params[:search]

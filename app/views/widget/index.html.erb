@@ -2,7 +2,7 @@
 <%=session[:expires_at].inspect %>
 
 <p><%= flash[:notice] %></p>
-<% if session[:login_status] != 'login success' %>
+<% if !session[:user_token] || !session[:userinfo] %>
   <button onclick="$('div#user_management').toggle()">Login</button> </br>
 <% end %>
 
@@ -58,7 +58,7 @@
   </div>
 </div>
 
-<% if session[:userinfo] %>
+<% if session[:user_token] && session[:userinfo] %>
   <div id="user_information" style="display: block">
     <table border="1" class="user_information">
       <tr><td colspan="4">Welcome, <%= session[:userinfo]['user']['name'] %></td></tr>
