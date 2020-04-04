@@ -3,9 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:login]
+    if params[:login] && verify_recaptcha
       r = Session.login(params[:login][:username], params[:login][:password])
-      if r['message'] == 'Success' && verify_recaptcha
+      if r['message'] == 'Success'
         login_status = 'login success'
         session[:user_token] = r['data']['token']
         token = r['data']['token']['token_type'] + ' ' + r['data']['token']['access_token']
@@ -18,8 +18,10 @@ class SessionsController < ApplicationController
       end
       flash_notice('Login', r)
       session[:login_status] = login_status
-      redirect_to :widget_index
+    else
+      flash[:notice] = 'Invalid captcha'
     end
+    redirect_to :widget_index
   end
 
   def logout

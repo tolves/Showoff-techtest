@@ -25,17 +25,22 @@ class UsersController < ApplicationController
   end
 
   def resetpwd
-    if params[:resetpwd]
+    if params[:resetpwd] && verify_recaptcha
       r = User.resetpasswd params[:resetpwd][:email]
+      puts r
       flash_notice('Reset password', r , true)
+    else
+      flash[:notice] = 'Invalid captcha'
     end
     redirect_to :widget_index
   end
 
   def register
-    if params[:register]
+    if params[:register] && verify_recaptcha
       r = User.register params[:register][:first_name], params[:register][:last_name], params[:register][:password], params[:register][:email], params[:register][:image_url]
       flash_notice('Register', r)
+    else
+      flash[:notice] = 'Invalid captcha'
     end
     redirect_to :widget_index
   end

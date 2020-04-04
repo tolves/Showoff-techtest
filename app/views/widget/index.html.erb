@@ -1,6 +1,6 @@
 <h2>Hello World</h2>
 
-<%=session[:user_token] %>
+<%=@a.inspect %>
 
 <% if flash[:login_error] %>
   <p><%= flash[:login_error] %></p>
@@ -17,7 +17,7 @@
     <%= form_for :login, url: :sessions_create do |f| %>
       <p><%= f.label :username %>: <%= f.text_field :username %></p>
       <p><%= f.label :password %>: <%= f.password_field :password %></p>
-      <%= recaptcha_tags %>
+      <%= recaptcha_tags%>
       <p><%= f.submit("login") %></p>
       <p>New to Showoff?</p>
       <p><button onclick="$('#user_management').hide();$('#users_register').show()" type="button">Register Now</button></p>
@@ -33,6 +33,7 @@
     <button class="close-button" onclick="$('#users_resetpwd').hide()">X</button>
     <%= form_for :resetpwd, url: :users_resetpwd do |f| %>
       <p><%= f.label :email %>: <%= f.text_field :email %></p>
+      <p><%= recaptcha_tags %></p>
       <p><%= f.submit("submit") %></p>
     <% end %>
   </div>
@@ -48,6 +49,7 @@
       <p><%= f.label :password %>: <%= f.password_field :password %></p>
       <p><%= f.label :email %>: <%= f.text_field :email %></p>
       <p><%= f.label :image_url %>: <%= f.text_field :image_url %></p>
+      <p><%= recaptcha_tags %></p>
       <p><%= f.submit("submit") %></p>
     <% end %>
   </div>
