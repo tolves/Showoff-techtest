@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post 'users/changepwd'
   post 'users/register'
   get 'users/index_me'
+  post 'users/index_me'
 
   post 'sessions/create'
   post 'sessions/logout'

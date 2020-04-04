@@ -2,7 +2,16 @@
 <p><%= flash[:notice] %></p>
 <br>
 <button onclick="$('#create_widget').show()" type="button">Create a budget</button>
+<%=@widgets_me_search.inspect %>
 
+<div id="search">
+  <%=form_for :search, url: :users_index_me do |f| %>
+    <%=f.text_field :term %>
+    <%=f.submit("search") %>
+  <%end %>
+</div>
+
+<% @index_me = @widgets_me_search if @widgets_me_search %>
 <div>
   <table border="1">
     <tr>

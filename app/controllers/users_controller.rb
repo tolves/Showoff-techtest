@@ -1,4 +1,21 @@
 class UsersController < ApplicationController
+
+  def index_me
+    if (!session[:user_token] || !session[:userinfo])
+      redirect_to :widget_index
+      return
+    end
+    authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
+    if params[:search]
+      #search term
+      @index_me = User.search authorization, params[:search][:term]
+      flash_notice('Search', @index_me)
+    else
+      @index_me = User.widgets_index_me authorization
+    end
+    render :index_me
+  end
+
   def update
     if params[:update_user]
       authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
@@ -43,16 +60,5 @@ class UsersController < ApplicationController
       flash[:notice] = 'Invalid captcha'
     end
     redirect_to :widget_index
-  end
-
-  def index_me
-    if (!session[:user_token] || !session[:userinfo])
-      redirect_to :widget_index
-      return
-    end
-    authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
-    @index_me = User.widgets_index_me authorization
-    authorization = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
-    @index_me_term = User.widgets_index_me authorization, '&term=visable'
   end
 end

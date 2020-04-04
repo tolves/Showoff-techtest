@@ -51,8 +51,14 @@ class User < ApplicationRecord
     self.rest_client 'post', url, payload, self.headers
   end
 
-  def self.widgets_index_me(authorization, term = '')
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{self.client_id}&client_secret=#{self.client_secret}" + term
+  def self.widgets_index_me(authorization)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{self.client_id}&client_secret=#{self.client_secret}"
+    headers = self.headers.merge({'Authorization' => authorization})
+    self.rest_client 'get', url, headers
+  end
+
+  def self.search(authorization, term)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{self.client_id}&client_secret=#{self.client_secret}&term=#{term}"
     headers = self.headers.merge({'Authorization' => authorization})
     self.rest_client 'get', url, headers
   end
