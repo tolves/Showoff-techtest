@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
 
   def logout
     session.clear
+    flash[:notice] = 'Log out success'
     redirect_to :widget_index
   end
 

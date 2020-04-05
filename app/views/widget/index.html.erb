@@ -42,8 +42,8 @@
       <tr><td colspan="4">Welcome, <%= session[:userinfo]['user']['name'] %></td></tr>
       <tr>
         <td><%=button_to 'My Widgets', users_index_me_url, method: :get %></td>
-        <td><button onclick="$('#user_update').toggle();">Update Profile</button></td>
-        <td><button onclick="$('#users_changepwd').toggle()">Change Password</button></td>
+        <td><button onclick="$('#user_update').toggle();" id="update_profile">Update Profile</button></td>
+        <td><button onclick="$('#users_changepwd').toggle()" id="change_password">Change Password</button></td>
         <td><%=button_to 'Logout', sessions_logout_url%></td>
       </tr>
     </table>

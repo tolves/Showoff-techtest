@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def update
     if params[:update_user]
       r = User.user_update params[:update_user][:first_name], params[:update_user][:last_name], params[:update_user][:date_of_birth], params[:update_user][:image_url], session[:authorization]
-      flash_notice('Updata User Information', r)
+      flash_notice('Update User Information', r)
       if r['message'] == 'Success'
         session[:userinfo] =r['data']
       end

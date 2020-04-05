@@ -12,14 +12,15 @@
       <td>
         <button onclick="
         $('#update_widget').show();
-            $('#update_id').val($(this).parent().prev().prev().prev().text());
+            // $('#update_id').val($(this).parent().prev().prev().prev().text());
+            $('#update_id').val(<%= w['id'] %>);
             $('#update_name').val($(this).parent().prev().prev().text());
             $('#update_description').val($(this).parent().prev().text());
-        " type="button">Update
+        " type="button" id="update_widget_<%=w['id'] %>">Update
         </button>
       </td>
       <td>
-        <button type="button" onclick="$('#delete_widget').show();$('#delete_id').val($(this).parent().prev().prev().prev().prev().text());">Delete</button>
+        <button type="button" onclick="$('#delete_widget').show();$('#delete_id').val(<%= w['id'] %>);" id="delete_widget_<%=w['id'] %>">Delete</button>
       </td>
     </tr>
   <% end %>
