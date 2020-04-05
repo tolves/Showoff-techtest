@@ -69,20 +69,8 @@
   </div>
 <% end %>
 
-<div>
-  <% @widgets_view_public = @widgets_search if @widgets_search %>
-  <table border="1">
-    <tr><th>ID</th><th>Name</th><th>Desc</th><th>user</th><th>owner</th></tr>
-    <% @widgets_view_public['widgets'].each do |i, index| %>
-      <tr>
-        <td><%= i['id'] %></td>
-        <td><%= i['name'] %></td>
-        <td><%= i['description'] %></td>
-        <td><%= i['user']['first_name']+' '+i['user']['last_name'] %></td>
-        <td><%= i['owner'] %></td>
-      </tr>
-    <% end %>
-  </table>
+<div id="widgets">
+  <%=render 'table_widgets' %>
 </div>
 
 

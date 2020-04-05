@@ -1,0 +1,26 @@
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Widget name</th>
+    <th>Widget description</th>
+  </tr>
+  <% @index_me['data']['widgets'].each do |w| %>
+    <tr>
+      <td><%= w['id'] %></td>
+      <td><%= w['name'] %></td>
+      <td><%= w['description'] %></td>
+      <td>
+        <button onclick="
+        $('#update_widget').show();
+            $('#update_id').val($(this).parent().prev().prev().prev().text());
+            $('#update_name').val($(this).parent().prev().prev().text());
+            $('#update_description').val($(this).parent().prev().text());
+        " type="button">Update
+        </button>
+      </td>
+      <td>
+        <button type="button" onclick="$('#delete_widget').show();$('#delete_id').val($(this).parent().prev().prev().prev().prev().text());">Delete</button>
+      </td>
+    </tr>
+  <% end %>
+</table>

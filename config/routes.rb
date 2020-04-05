@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   post 'sessions/logout'
 
   get 'widget/index'
+  post 'widget/index'
   root 'widget#index'
   post 'widget/create'
   put 'widget/update'
   delete 'widget/delete'
-  post 'widget/search'
 
 end

@@ -1,0 +1,12 @@
+<table border="1">
+  <tr><th>ID</th><th>Name</th><th>Desc</th><th>user</th><th>owner</th></tr>
+  <% @widgets['widgets'].each do |i, index| %>
+    <tr>
+      <td><%= i['id'] %></td>
+      <td><%= i['name'] %></td>
+      <td><%= i['description'] %></td>
+      <td><%= i['user']['first_name']+' '+i['user']['last_name'] %></td>
+      <td><%= i['owner'] %></td>
+    </tr>
+  <% end %>
+</table>

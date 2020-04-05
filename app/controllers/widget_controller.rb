@@ -3,10 +3,13 @@ class WidgetController < ApplicationController
   before_action  :session_user_check, :except => [:index, :search]
 
   def index
-    r = Widget.visible_public
-    if r['message'] == 'Success'
-      @widgets_view_public= r['data']
+    if params[:search]
+      r = Widget.search params[:search][:term]
+      flash_notice('Search', r)
+    else
+      r = Widget.visible_public
     end
+      @widgets= r['data']
     render :index
   end
 
@@ -32,14 +35,5 @@ class WidgetController < ApplicationController
       flash_notice('Delete widget', r)
     end
     redirect_to :users_index_me
-  end
-
-  def search
-    r = Widget.search params[:search][:term]
-    if r['message'] == 'Success'
-      @widgets_search= r['data']
-      flash_notice('Search', r)
-    end
-    render :index
   end
 end

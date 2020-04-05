@@ -2,40 +2,13 @@
 <p><%= flash[:notice] %></p>
 <br>
 <button onclick="$('#create_widget').show()" type="button">Create a budget</button>
-<%=@widgets_me_search.inspect %>
 
 <div id="search">
   <%= render 'form_search' %>
 </div>
 
-<% @index_me = @widgets_me_search if @widgets_me_search %>
-<div>
-  <table border="1">
-    <tr>
-      <th>ID</th>
-      <th>Widget name</th>
-      <th>Widget description</th>
-    </tr>
-    <% @index_me['data']['widgets'].each do |w| %>
-      <tr>
-        <td><%= w['id'] %></td>
-        <td><%= w['name'] %></td>
-        <td><%= w['description'] %></td>
-        <td>
-          <button onclick="
-          $('#update_widget').show();
-              $('#update_id').val($(this).parent().prev().prev().prev().text());
-              $('#update_name').val($(this).parent().prev().prev().text());
-              $('#update_description').val($(this).parent().prev().text());
-          " type="button">Update
-          </button>
-        </td>
-        <td>
-          <button type="button" onclick="$('#delete_widget').show();$('#delete_id').val($(this).parent().prev().prev().prev().prev().text());">Delete</button>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+<div id="index_me">
+  <%=render 'table_index_me' %>
 </div>
 <p><%= link_to 'Back', :widget_index %></p>
 
