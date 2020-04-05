@@ -1,17 +1,17 @@
 class Session < ApplicationRecord
   def self.login(username, password)
-    url = 'https://showoff-rails-react-production.herokuapp.com/oauth/token'
+    url = URL[:authentication][:create][:url]
     payload = {'grant_type' => 'password',
                'client_id' => CLIENT_ID,
                'client_secret' => CLIENT_SECRET,
                'username' => username,
                'password' => password
     }
-    self.rest_client 'post', url, payload, HEADERS
+    self.rest_client URL[:authentication][:create][:method], url, payload, HEADERS
   end
 
   def self.show_me (authorization)
-    url = 'https://showoff-rails-react-production.herokuapp.com/api/v1/users/me'
-    self.rest_client 'get', url, self.auth_headers(authorization)
+    url = URL[:users][:show_me][:url]
+    self.rest_client URL[:users][:show_me][:method], url, self.auth_headers(authorization)
   end
 end

@@ -8,7 +8,9 @@
 </div>
 
 <div id="index_me">
+  <% if @index_me %>
   <%=render 'table_index_me' %>
+  <% end%>
 </div>
 <p><%= link_to 'Back', :widget_index %></p>
 

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   def self.user_update(first_name, last_name, date_of_birth, image_url, authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me"
+    url = URL[:users][:update][:url]
     payload = {
         'user' => {
             'first_name' => first_name,
@@ -9,32 +9,32 @@ class User < ApplicationRecord
             'image_url' => image_url
         }
     }
-    self.rest_client 'put', url, payload, self.auth_headers(authorization)
+    self.rest_client URL[:users][:update][:method], url, payload, self.auth_headers(authorization)
   end
 
   def self.changepasswd (current, new, authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/password"
+    url = URL[:users][:change_pwd][:url]
     payload = {
         'user' => {
             'current_password' => current,
             'new_password' => new
         }
     }
-    self.rest_client 'post', url, payload, self.auth_headers(authorization)
+    self.rest_client URL[:users][:change_pwd][:method], url, payload, self.auth_headers(authorization)
   end
 
   def self.resetpasswd (email)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/reset_password"
+    url = URL[:users][:reset_pwd][:url]
     payload = {
         'user' => {'email' => email},
-        'client_id' => self.client_id,
-        'client_secret' => self.client_secret
+        'client_id' => CLIENT_ID,
+        'client_secret' => CLIENT_SECRET
     }
-    self.rest_client 'post', url, payload, HEADERS
+    self.rest_client URL[:users][:reset_pwd][:method], url, payload, HEADERS
   end
 
   def self.register (first_name, last_name, password, email, image_url)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users"
+    url = URL[:users][:create][:url]
     payload = {
         'client_id' => CLIENT_ID,
         'client_secret' => CLIENT_SECRET,
@@ -46,21 +46,21 @@ class User < ApplicationRecord
             'image_url' => image_url
         }
     }
-    self.rest_client 'post', url, payload, HEADERS
+    self.rest_client URL[:users][:create][:method], url, payload, HEADERS
   end
 
   def self.widgets_index_me (authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}"
-    self.rest_client 'get', url, self.auth_headers(authorization)
+    url = URL[:users][:widgets][:index_me][:url] + "?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}"
+    self.rest_client URL[:users][:widgets][:index_me][:method], url, self.auth_headers(authorization)
   end
 
   def self.search(term, authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&term=#{term}"
-    self.rest_client 'get', url, self.auth_headers(authorization)
+    url = URL[:users][:widgets][:index_me_term][:url] + "?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&term=#{term}"
+    self.rest_client URL[:users][:widgets][:index_me_term][:method], url, self.auth_headers(authorization)
   end
 
   def self.check_email(email)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/email?email=#{email}&client_id=#{self.client_id}&client_secret=#{self.client_secret}"
-    self.rest_client 'get', url, HEADERS
+    url = URL[:users][:check_email][:url] + "?email=#{email}&client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}"
+    self.rest_client URL[:users][:check_email][:method], url, HEADERS
   end
 end

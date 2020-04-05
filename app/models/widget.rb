@@ -1,13 +1,13 @@
 class Widget < ApplicationRecord
   def self.visible_public
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/visible?" +
-        "client_id=" + CLIENT_ID +
+    url = URL[:widgets][:visible][:index][:url] +
+        "?client_id=" + CLIENT_ID +
         "&client_secret=" + CLIENT_SECRET
-    self.rest_client 'get', url, HEADERS
+    self.rest_client URL[:widgets][:visible][:index][:method], url, HEADERS
   end
 
   def self.create(name, description, kind, authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets"
+    url = URL[:widgets][:create][:url]
     payload = {
         'widget' => {
             'name' => name,
@@ -15,30 +15,30 @@ class Widget < ApplicationRecord
             'kind' => kind
         }
     }
-    self.rest_client 'post', url, payload, self.auth_headers(authorization)
+    self.rest_client URL[:widgets][:create][:method], url, payload, self.auth_headers(authorization)
   end
 
   def self.update(id, name, description, authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/"+id
+    url = URL[:widgets][:update][:url] + "#{id}"
     payload = {
         'widget' => {
             'name' => name,
             'description' => description
         }
     }
-    self.rest_client 'put', url, payload, self.auth_headers(authorization)
+    self.rest_client URL[:widgets][:update][:method], url, payload, self.auth_headers(authorization)
   end
 
   def self.delete(id, authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/"+id
-    self.rest_client 'delete', url, self.auth_headers(authorization)
+    url = URL[:widgets][:delete][:url] + "#{id}"
+    self.rest_client URL[:widgets][:delete][:method], url, self.auth_headers(authorization)
   end
 
   def self.search(term)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/visible?" +
-        "client_id=" + CLIENT_ID +
+    url = URL[:widgets][:visible][:index_term][:url] +
+        "?client_id=" + CLIENT_ID +
         "&client_secret=" + CLIENT_SECRET +
         "&term=" + term
-    self.rest_client 'get', url, HEADERS
+    self.rest_client URL[:widgets][:visible][:index_term][:method], url, HEADERS
   end
 end
