@@ -3,7 +3,10 @@
   <p><%= f.label :last_name %>: <%= f.text_field :last_name %></p>
   <p><%= f.label :password %>: <%= f.password_field :password %></p>
   <p><%= f.label :email %>: <%= f.text_field :email %></p>
+  <p id="check_email_results"></p>
+  <input type=button id="check_email" value="Check Email">
   <p><%= f.label :image_url %>: <%= f.text_field :image_url %></p>
   <p><%= recaptcha_tags %></p>
   <p><%= f.submit("submit") %></p>
 <% end %>
+<%= javascript_pack_tag :users %>

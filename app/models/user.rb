@@ -62,4 +62,9 @@ class User < ApplicationRecord
     headers = self.headers.merge({'Authorization' => authorization})
     self.rest_client 'get', url, headers
   end
+
+  def self.check_email(email)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/email?email=#{email}&client_id=#{self.client_id}&client_secret=#{self.client_secret}"
+    self.rest_client 'get', url, headers
+  end
 end

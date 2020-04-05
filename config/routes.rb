@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'users/register'
   get 'users/index_me'
   post 'users/index_me'
+  post 'users/check_email'
 
   post 'sessions/create'
   post 'sessions/logout'

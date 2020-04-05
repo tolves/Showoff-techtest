@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action  :session_expires, :except => [:resetpwd, :register]
-  before_action  :session_user_check, :except => [:resetpwd, :register]
+  before_action  :session_expires, :except => [:resetpwd, :register, :check_email]
+  before_action  :session_user_check, :except => [:resetpwd, :register, :check_email]
+  protect_from_forgery :except => [:check_email]
 
   def index_me
     if params[:search]
@@ -55,5 +56,14 @@ class UsersController < ApplicationController
       flash[:notice] = 'Invalid captcha'
     end
     redirect_to :widget_index
+  end
+
+  def check_email
+    if params[:action] == "check_email" && params[:email]!=''
+      r = User.check_email params[:email]
+    else
+      r = {'message'=>'false'}
+    end
+    render json: r
   end
 end
