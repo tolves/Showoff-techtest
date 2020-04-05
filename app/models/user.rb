@@ -9,8 +9,7 @@ class User < ApplicationRecord
             'image_url' => image_url
         }
     }
-    headers = self.headers.merge({'Authorization' => authorization})
-    self.rest_client 'put', url, payload, headers
+    self.rest_client 'put', url, payload, self.auth_headers(authorization)
   end
 
   def self.changepasswd (current, new, authorization)
@@ -21,8 +20,7 @@ class User < ApplicationRecord
             'new_password' => new
         }
     }
-    headers = self.headers.merge({'Authorization' => authorization})
-    self.rest_client 'post', url, payload, headers
+    self.rest_client 'post', url, payload, self.auth_headers(authorization)
   end
 
   def self.resetpasswd (email)
@@ -32,14 +30,14 @@ class User < ApplicationRecord
         'client_id' => self.client_id,
         'client_secret' => self.client_secret
     }
-    self.rest_client 'post', url, payload, self.headers
+    self.rest_client 'post', url, payload, HEADERS
   end
 
   def self.register (first_name, last_name, password, email, image_url)
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users"
     payload = {
-        'client_id' => self.client_id,
-        'client_secret' => self.client_secret,
+        'client_id' => CLIENT_ID,
+        'client_secret' => CLIENT_SECRET,
         'user' => {
             'first_name' => first_name,
             'last_name' => last_name,
@@ -48,23 +46,21 @@ class User < ApplicationRecord
             'image_url' => image_url
         }
     }
-    self.rest_client 'post', url, payload, self.headers
+    self.rest_client 'post', url, payload, HEADERS
   end
 
-  def self.widgets_index_me(authorization)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{self.client_id}&client_secret=#{self.client_secret}"
-    headers = self.headers.merge({'Authorization' => authorization})
-    self.rest_client 'get', url, headers
+  def self.widgets_index_me (authorization)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}"
+    self.rest_client 'get', url, self.auth_headers(authorization)
   end
 
-  def self.search(authorization, term)
-    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{self.client_id}&client_secret=#{self.client_secret}&term=#{term}"
-    headers = self.headers.merge({'Authorization' => authorization})
-    self.rest_client 'get', url, headers
+  def self.search(term, authorization)
+    url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/me/widgets?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&term=#{term}"
+    self.rest_client 'get', url, self.auth_headers(authorization)
   end
 
   def self.check_email(email)
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/users/email?email=#{email}&client_id=#{self.client_id}&client_secret=#{self.client_secret}"
-    self.rest_client 'get', url, headers
+    self.rest_client 'get', url, HEADERS
   end
 end

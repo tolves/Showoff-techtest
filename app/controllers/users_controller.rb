@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def index_me
     if params[:search]
       #search term
-      @index_me = User.search session[:authorization], params[:search][:term]
+      @index_me = User.search params[:search][:term], session[:authorization]
       flash_notice('Search', @index_me)
     else
       @index_me = User.widgets_index_me session[:authorization]

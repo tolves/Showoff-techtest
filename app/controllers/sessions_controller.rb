@@ -1,3 +1,4 @@
+#noinspection ALL
 class SessionsController < ApplicationController
   def new
   end
@@ -9,8 +10,7 @@ class SessionsController < ApplicationController
         session[:user_token] = r['data']['token']
         session[:expires_at] = r['data']['token']['created_at'] + r['data']['token']['expires_in']
         session[:authorization] = session[:user_token]['token_type'] + ' ' + session[:user_token]['access_token']
-        token = r['data']['token']['token_type'] + ' ' + r['data']['token']['access_token']
-        userinfo = Session.show_me(token)
+        userinfo = Session.show_me session[:authorization]
         if userinfo['message'] == 'Success'
           session[:userinfo] = userinfo['data']
         end

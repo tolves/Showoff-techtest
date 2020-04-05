@@ -1,9 +1,9 @@
 class Widget < ApplicationRecord
   def self.visible_public
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/visible?" +
-        "client_id=" + self.client_id +
-        "&client_secret=" + self.client_secret
-    self.rest_client 'get', url, self.headers
+        "client_id=" + CLIENT_ID +
+        "&client_secret=" + CLIENT_SECRET
+    self.rest_client 'get', url, HEADERS
   end
 
   def self.create(name, description, kind, authorization)
@@ -15,8 +15,7 @@ class Widget < ApplicationRecord
             'kind' => kind
         }
     }
-    headers = self.headers.merge({'Authorization' => authorization})
-    self.rest_client 'post', url, payload, headers
+    self.rest_client 'post', url, payload, self.auth_headers(authorization)
   end
 
   def self.update(id, name, description, authorization)
@@ -27,21 +26,19 @@ class Widget < ApplicationRecord
             'description' => description
         }
     }
-    headers = self.headers.merge({'Authorization' => authorization})
-    self.rest_client 'put', url, payload, headers
+    self.rest_client 'put', url, payload, self.auth_headers(authorization)
   end
 
   def self.delete(id, authorization)
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/"+id
-    headers = self.headers.merge({'Authorization' => authorization})
-    self.rest_client 'delete', url, headers
+    self.rest_client 'delete', url, self.auth_headers(authorization)
   end
 
   def self.search(term)
     url = "https://showoff-rails-react-production.herokuapp.com/api/v1/widgets/visible?" +
-        "client_id=" + self.client_id +
-        "&client_secret=" + self.client_secret +
+        "client_id=" + CLIENT_ID +
+        "&client_secret=" + CLIENT_SECRET +
         "&term=" + term
-    self.rest_client 'get', url, self.headers
+    self.rest_client 'get', url, HEADERS
   end
 end

@@ -9,4 +9,3 @@ $("#check_email").click(function (e) {
         }
     });
 });
-console.log('123')

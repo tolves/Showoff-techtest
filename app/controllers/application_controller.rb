@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   def flash_notice(method, r, success = nil)
     if r['code'] == 0
       flash[:notice] = method + ' success'
