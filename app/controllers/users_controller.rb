@@ -60,9 +60,13 @@ class UsersController < ApplicationController
 
   def check_email
     if params[:action] == "check_email" && params[:email]!=''
-      r = User.check_email params[:email]
+      if params[:email] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+        r = User.check_email params[:email]
+      else
+        r = {'message' => "#{params[:email]} is not an email"}
+      end
     else
-      r = {'message'=>'false'}
+      r = {'message'=>'Email check false'}
     end
     render json: r
   end

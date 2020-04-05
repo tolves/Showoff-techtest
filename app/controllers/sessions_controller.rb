@@ -1,8 +1,4 @@
-#noinspection ALL
 class SessionsController < ApplicationController
-  def new
-  end
-
   def create
     if params[:login] && verify_recaptcha
       r = Session.login(params[:login][:username], params[:login][:password])

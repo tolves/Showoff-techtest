@@ -5,7 +5,7 @@ $("#check_email").click(function (e) {
                 $("#check_email_results").text('Email address available');
             }
         }else{
-            $("#check_email_results").text('Email address unavailable')
+            $("#check_email_results").text(data['message'])
         }
     });
 });
