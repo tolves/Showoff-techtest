@@ -29,6 +29,7 @@
 #widget_form{
     z-index: 10;
     position: inherit;
+    margin: 10px
 }
 
 .user_information {
@@ -42,13 +43,13 @@
     right: 0;
     top:0;
     bottom: 0;
-    width:400px;
-    height:300px;
+    width:30%;
+    height:55%;
     background: #03a9f4;
 }
 
 .close-button {
-    float: right;
+    /*float: right;*/
 }
 
 #background_grey {
@@ -64,5 +65,5 @@
 #user_form {
     z-index: 10;
     position: inherit;
-    width: 400px;
+    margin: 10px;
 }
