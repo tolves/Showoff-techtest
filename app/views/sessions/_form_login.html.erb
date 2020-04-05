@@ -3,8 +3,9 @@
   <p><%= f.label :password %>: <%= f.password_field :password %></p>
   <%= recaptcha_tags%>
   <p><%= f.submit("login") %></p>
-  <p>New to Showoff?</p>
-  <p><button onclick="$('#user_management').hide();$('#users_register').show()" type="button">Register Now</button></p>
-  <p>Forget your password?</p>
+  <p><hr></p>
+  <p>New to Showoff?<br>
+  <button onclick="$('#user_management').hide();$('#users_register').show()" type="button">Register Now</button></p>
+  <p>Forget your password?<br>
   <button onclick="$('#user_management').hide();$('#users_resetpwd').show()" type="button">Reset Password</button>
 <% end %>

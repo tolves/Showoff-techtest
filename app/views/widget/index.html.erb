@@ -13,7 +13,8 @@
 <div id="user_management" class="user_management" style="display: none">
   <div id="background_grey"></div>
   <div id="user_form">
-    <span><button class="close-button" onclick="$('#user_management').hide()">X</button> </span>
+    <button class="close-button" onclick="$('#user_management').hide()">X</button>
+    <span>User Login</span>
     <%= render 'sessions/form_login' %>
   </div>
 </div>
@@ -22,6 +23,7 @@
   <div id="background_grey"></div>
   <div id="user_form">
     <button class="close-button" onclick="$('#users_resetpwd').hide()">X</button>
+    <span>Reset Your Password</span>
     <%= render 'users/form_resetpwd' %>
   </div>
 </div>
@@ -30,6 +32,7 @@
   <div id="background_grey"></div>
   <div id="user_form">
     <button class="close-button" onclick="$('#users_register').hide()">X</button>
+    <span>Register!</span>
     <%=render 'users/form_register' %>
   </div>
 </div>
@@ -50,8 +53,8 @@
   <div id="user_update" class="user_management" style="display: none">
     <div id="background_grey"></div>
     <div id="user_form">
-      <span>Update Profile</span>
       <button class="close-button" onclick="$('#user_update').hide()">X</button>
+      <span>Update Profile</span>
       <%=render 'users/form_update' %>
     </div>
   </div>
@@ -60,6 +63,7 @@
     <div id="background_grey"></div>
     <div id="user_form">
       <button class="close-button" onclick="$('#users_changepwd').hide()">X</button>
+      <span>Change Password</span>
       <%=render 'users/form_changepwd' %>
     </div>
   </div>
@@ -67,7 +71,7 @@
 
 <div>
   <% @widgets_view_public = @widgets_search if @widgets_search %>
-  <table>
+  <table border="1">
     <tr><th>ID</th><th>Name</th><th>Desc</th><th>user</th><th>owner</th></tr>
     <% @widgets_view_public['widgets'].each do |i, index| %>
       <tr>

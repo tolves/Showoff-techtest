@@ -1,6 +1,6 @@
 <%= form_for :delete, :method => :delete, url: :widget_delete do |f| %>
   <%= f.hidden_field(:id, :value => nil) %>
-  <p>Are you sure to delete this widget?</p>
+  <p>Are you sure you want to delete this widget?</p>
   <p>
     <%= f.submit("Yes") %>
     <button class="close-button" onclick="$('#delete_widget').hide()" type="button">No</button>
