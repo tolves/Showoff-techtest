@@ -4,16 +4,19 @@ Ruby on Rails
 
 Show-off Tech Test
 
-* Ruby version : 2.6
-
+* Ruby version : 2.6.5
 * Rails version: 6.0.2.2
-
 * Database : PostgreSQL
+* Heroku: 
+https://polar-oasis-32422.herokuapp.com/
 
-TO DO:
+Deloyment steps:
 
-* How to run the test suite
+* bundle install
+* Add database information to credentials.yml.enc: `EDITOR=vim rails credentials:edit`
+* Edit webpacker.yml ,set `extract_css: true`
+* Run: `RAILS_ENV=production rails assets:precompile`
+* Run: `RAILS_ENV=production rails s`
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+Run test:
+* `rails test:system`
