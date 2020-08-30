@@ -9,8 +9,11 @@ class WidgetController < ApplicationController
     else
       r = Widget.visible_public
     end
-      @widgets= r['data']
-    render :index
+      @widgets= r['data']['widgets']
+    respond_to do |format|
+      format.json { render json: @widgets }
+      format.html { render :index }
+    end
   end
 
   def create
